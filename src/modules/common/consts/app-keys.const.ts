@@ -3,6 +3,11 @@ export const STORAGE_KEYS = {
   TOKEN: 'TOKEN'
 };
 
+// React-query keys
+export const QUERY_KEYS = {
+  TODOS: 'todos'
+};
+
 // Backend Routes
 export const BACKEND_KEYS = {
   TODOS: 'todos'
