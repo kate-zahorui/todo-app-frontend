@@ -1,5 +1,12 @@
 import React from 'react';
+import { ContentContainer } from '../../common/components/contentContainer';
 
-const HomePageContainer = () => <div>Home</div>;
+const HomePageContainer = () => (
+  <>
+    <ContentContainer>
+      <p>Home</p>
+    </ContentContainer>
+  </>
+);
 
 export default HomePageContainer;
