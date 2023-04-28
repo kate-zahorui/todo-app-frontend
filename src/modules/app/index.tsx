@@ -1,5 +1,6 @@
 import React from 'react';
+import { MainRouter } from '../navigation';
 
-const AppContainer = () => <div>App</div>;
+const AppContainer = () => <MainRouter />;
 
 export default AppContainer;
