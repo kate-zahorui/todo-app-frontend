@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { Grid, Typography } from '@mui/material';
 import { ITodoResponse } from '../../types/todo.type';
 import { APP_KEYS } from '../../consts';
+import { TodoActions } from '../todoActions';
 
 export const TodosList = () => {
   const { isLoading, isError, data } = useQuery<{ data: ITodoResponse[] }>(
@@ -25,6 +26,7 @@ export const TodosList = () => {
               <Typography variant="body2" mb={2}>
                 {i.description}
               </Typography>
+              <TodoActions item={i} />
             </Grid>
           ))}
         </Grid>

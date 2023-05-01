@@ -4,6 +4,7 @@ import { TableBody, TableContainer, TableRow } from '@mui/material';
 import { ITodoResponse } from '../../types/todo.type';
 import { StyledTable, StyledTableCell, StyledTableHead, StyledTableRow } from './todosTable.styled';
 import { APP_KEYS } from '../../consts';
+import { TodoActions } from '../todoActions';
 
 export const TodosTable = () => {
   const { isLoading, isError, data } = useQuery<{ data: ITodoResponse[] }>(
@@ -31,7 +32,7 @@ export const TodosTable = () => {
                 <StyledTableCell>{i.title}</StyledTableCell>
                 <StyledTableCell>{i.description}</StyledTableCell>
                 <StyledTableCell>
-                  <p>Todo Actions</p>
+                  <TodoActions item={i} />
                 </StyledTableCell>
               </StyledTableRow>
             ))}
