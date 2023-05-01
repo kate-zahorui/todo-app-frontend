@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import todoService from '../../../services/api/todo.service';
 import { ContentContainer } from '../../common/components/contentContainer';
+import { TodosContainer } from '../../common/components/todosContainer';
 import { Header } from '../../common/components/header';
 import { APP_KEYS } from '../../common/consts';
 
@@ -23,7 +24,7 @@ const HomePageContainer = () => {
     <>
       <Header />
       <ContentContainer>
-        <p>Home</p>
+        <TodosContainer />
       </ContentContainer>
     </>
   );
