@@ -1,19 +1,20 @@
 import React from 'react';
+import useMediaScreen from 'services/hooks/useMediaScreen';
 import { ContentContainer } from '../../common/components/contentContainer';
-import useMediaScreen from '../../../services/hooks/useMediaScreen';
 import { Header } from 'modules/common/components/header';
+import { TodoForm } from 'modules/common/components/todoForm';
 
-const TodoDetails = () => {
+const AddOrUpdateTodoPage = () => {
   const isMobileScreen = useMediaScreen('mobile');
 
   return (
     <>
       {isMobileScreen && <Header />}
       <ContentContainer>
-        <p>Todo Details</p>
+        <TodoForm />
       </ContentContainer>
     </>
   );
 };
 
-export default TodoDetails;
+export default AddOrUpdateTodoPage;

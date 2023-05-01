@@ -5,8 +5,23 @@ import { StyledSwitch } from './switchElement.styled';
 interface IProps {
   value: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  disabled?: boolean;
+  name?: string;
+  id?: string;
 }
 
-export const SwitchElement: FC<IProps> = ({ value }) => (
-  <FormControlLabel control={<StyledSwitch checked={value} type="checkbox" />} label="" />
+export const SwitchElement: FC<IProps> = ({ id, value, onChange, disabled, ...props }) => (
+  <FormControlLabel
+    control={
+      <StyledSwitch
+        id={id}
+        value={value}
+        checked={value}
+        disabled={disabled}
+        type="checkbox"
+        {...props}
+      />
+    }
+    label=""
+  />
 );
