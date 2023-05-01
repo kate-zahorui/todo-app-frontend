@@ -1,9 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import useMediaScreen from '../../../../services/hooks/useMediaScreen';
+import { AddButton } from '../addButton';
 import { FiltersGroup } from '../filtersGroup';
+import { SearchInput } from '../searchInput';
 import { TodosList } from '../todosList';
 import { TodosTable } from '../todosTable';
+import { FiltersWrapper, Wrapper } from './todosContainer.styled';
 
 export const TodosContainer = () => {
   const isMobileScreen = useMediaScreen('mobile');
@@ -12,9 +15,13 @@ export const TodosContainer = () => {
 
   return (
     <Box pt={10}>
-      <Box mb={2}>
+      <FiltersWrapper>
         <FiltersGroup />
-      </Box>
+        <Wrapper>
+          <AddButton />
+          <SearchInput />
+        </Wrapper>
+      </FiltersWrapper>
       {(isMobileScreen || isTabletScreen) && <TodosList />}
       {isDesktopScreen && <TodosTable />}
     </Box>
