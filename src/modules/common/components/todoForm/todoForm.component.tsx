@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Formik, Form } from 'formik';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Box, Typography } from '@mui/material';
 import todoService from '../../../../services/api/todo.service';
 import { ITodo, ITodoResponse } from '../../types/todo.type';
@@ -33,6 +34,17 @@ export const TodoForm = () => {
     APP_KEYS.QUERY_KEYS.TODOS,
     todoService.getTodos.bind(todoService)
   );
+  const queryClient = useQueryClient();
+
+  const addMutation = useMutation((newTodo: ITodo) => todoService.addTodo(newTodo), {
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries([APP_KEYS.QUERY_KEYS.TODOS]);
+      Notify.success(`Todo '${variables.title}' is added!`);
+    },
+    onError: (error) => {
+      Notify.failure((error as Error).message);
+    }
+  });
 
   useEffect(() => {
     if (!todoid) return;
@@ -57,7 +69,7 @@ export const TodoForm = () => {
         enableReinitialize
         initialValues={formikValues}
         onSubmit={(values, actions) => {
-          alert(JSON.stringify(values, null, 2));
+          addMutation.mutate(values);
           actions.resetForm();
           navigate(APP_KEYS.ROUTER_KEYS.HOME);
         }}
