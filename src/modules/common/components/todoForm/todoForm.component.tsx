@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Formik, Form } from 'formik';
@@ -46,6 +46,24 @@ export const TodoForm = () => {
     }
   });
 
+  const updateMutation = useMutation(
+    ({ id, newTodo }: { id: string; newTodo: ITodo }) => todoService.updateTodo(id, newTodo),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([APP_KEYS.QUERY_KEYS.TODOS]);
+        Notify.success('Todo is updated!');
+      },
+      onError: (error) => {
+        Notify.failure((error as Error).message);
+      }
+    }
+  );
+
+  const isLoading = useMemo(
+    () => addMutation.isLoading || updateMutation.isLoading,
+    [addMutation.isLoading, updateMutation.isLoading]
+  );
+
   useEffect(() => {
     if (!todoid) return;
     setIsEditModeOn(true);
@@ -69,7 +87,16 @@ export const TodoForm = () => {
         enableReinitialize
         initialValues={formikValues}
         onSubmit={(values, actions) => {
-          addMutation.mutate(values);
+          switch (isEditModeOn) {
+            case true:
+              if (!todoid) break;
+              updateMutation.mutate({ id: todoid, newTodo: values });
+              break;
+
+            default:
+              addMutation.mutate(values);
+              break;
+          }
           actions.resetForm();
           navigate(APP_KEYS.ROUTER_KEYS.HOME);
         }}
@@ -84,6 +111,7 @@ export const TodoForm = () => {
               value={values.title}
               required
               onChange={handleChange}
+              disabled={isLoading}
             />
             <Box mt={5}>
               <StyledLabel htmlFor="description">Description:</StyledLabel>
@@ -97,6 +125,7 @@ export const TodoForm = () => {
                 onChange={handleChange}
                 multiline
                 maxRows={8}
+                disabled={isLoading}
               />
             </Box>
             <Box mt={3}>
@@ -107,6 +136,7 @@ export const TodoForm = () => {
                   value={values.isCompleted}
                   name="isCompleted"
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
               </CheckboxContainer>
               <CheckboxContainer>
@@ -116,17 +146,18 @@ export const TodoForm = () => {
                   value={values.isPrivate}
                   name="isPrivate"
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
               </CheckboxContainer>
             </Box>
             <ButtonsWrapper>
               <GenericButton
                 onClick={() => navigate(APP_KEYS.ROUTER_KEYS.HOME)}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isLoading}
               >
                 Back
               </GenericButton>
-              <GenericButton type="submit" disabled={isSubmitting}>
+              <GenericButton type="submit" disabled={isSubmitting || isLoading}>
                 {isEditModeOn ? 'Save' : 'Add todo'}
               </GenericButton>
             </ButtonsWrapper>

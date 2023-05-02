@@ -23,7 +23,7 @@ class TodoService extends HttpService {
     });
   }
 
-  updateTodo(id: string, todo: ITodo) {
+  updateTodo(id: string, todo: Partial<ITodo>) {
     return this.put<ITodoServiceConfig>({
       url: `${APP_KEYS.BACKEND_KEYS.TODOS}/${id}`,
       data: todo
