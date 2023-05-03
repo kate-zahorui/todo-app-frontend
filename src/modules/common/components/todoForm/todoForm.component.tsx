@@ -79,7 +79,7 @@ export const TodoForm = () => {
       isPrivate: todo.isPrivate,
       isCompleted: todo.isCompleted
     });
-  }, [isEditModeOn, data]);
+  }, [isEditModeOn, data, todoid]);
 
   return (
     <FormContainer>

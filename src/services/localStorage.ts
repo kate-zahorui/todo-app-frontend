@@ -24,8 +24,10 @@ const remove = (key: string) => {
   }
 };
 
-export default {
+const ls = {
   save,
   load,
   remove
 };
+
+export default ls;
