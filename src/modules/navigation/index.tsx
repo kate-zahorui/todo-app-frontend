@@ -4,7 +4,7 @@ import { AddOrUpdateTodoPage, HomePageContainer } from '../pages';
 import { APP_KEYS } from '../common/consts';
 
 export const MainRouter = () => (
-  <Router>
+  <Router basename="/todo-app-frontend">
     <Routes>
       <Route element={<HomePageContainer />} path={APP_KEYS.ROUTER_KEYS.HOME} />
       <Route element={<AddOrUpdateTodoPage />} path={APP_KEYS.ROUTER_KEYS.ADD_TODO} />
