@@ -2,6 +2,7 @@
   "name": "todo-app-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kate-zahorui.github.io/todo-app-frontend/",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
@@ -16,6 +17,7 @@
     "@types/react-dom": "^18.0.0",
     "axios": "^1.4.0",
     "formik": "^2.2.9",
+    "gh-pages": "^5.0.0",
     "notiflix": "^3.2.6",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
@@ -30,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
