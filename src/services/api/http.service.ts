@@ -30,7 +30,7 @@ export default class HttpService {
   }
 
   private extractUrlAndDataFromConfig({ data, url, ...configWithoutDataAndUrl }: IServiceConfig) {
-    return configWithoutDataAndUrl;
+    return { 'Access-Control-Allow-Origin': '*', ...configWithoutDataAndUrl };
   }
 
   get<T extends IServiceConfig>(config: T, withAuth = true) {
